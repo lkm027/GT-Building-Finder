@@ -87,19 +87,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             PreferenceStorer storer = new PreferenceStorer(inputStream);
             storer.store(preferences);
         }
-        String string = "hey";
-
-//        InputStream inputStream = getResources().openRawResource(R.raw.locations);
-//        CSVFile csvFile = new CSVFile(inputStream);
-//        locations = csvFile.read();
-    }
-
-    private void addPreferences() {
-//        preferences = getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("Allen Sustainable Education Building", "ChIJO42jLIoE9YgROG9jaBOnSLU")
-                .putString("Baker Building", "ChIJTSnsFYsE9YgRyhuMqeBD9cQ");
-        editor.commit();
     }
 
 

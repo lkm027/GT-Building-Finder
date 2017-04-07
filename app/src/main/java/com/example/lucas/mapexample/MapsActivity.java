@@ -1,6 +1,8 @@
 package com.example.lucas.mapexample;
 
+import android.app.FragmentManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -12,8 +14,12 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NavUtils;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.android.gms.common.SignInButton;
@@ -47,9 +53,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.jar.Manifest;
 
-import CSVPackage.CSVFile;
-
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
+public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback,
     GoogleApiClient.ConnectionCallbacks,
     GoogleApiClient.OnConnectionFailedListener,
     LocationListener {
@@ -59,12 +63,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private LocationRequest mLocationRequest;
     private Location mLastLocation;
     private Marker mCurrLocationMarker;
+    private String origin;
+    private String destination;
 
     private ArrayList<LatLng> markerPoints;
 
-    private SharedPreferences preferences;
-
     private List locations;
+
+    private SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +79,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkLocationPermission();
         }
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -81,12 +88,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //Initialize markerPoints
         markerPoints = new ArrayList<>();
 
+        // Grab location and destination information from previous activity
+        Intent intent = getIntent();
         preferences = getPreferences(MODE_PRIVATE);
-        if (!preferences.contains("test")) {
-            InputStream inputStream = getResources().openRawResource(R.raw.locations);
-            PreferenceStorer storer = new PreferenceStorer(inputStream);
-            storer.store(preferences);
+        origin = preferences.getString(intent.getStringExtra("origin"), "Allen Sustainable Education Building");
+        destination = preferences.getString(intent.getStringExtra("destination"),"Baker Building");
+
+
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+            case android.R.id.home:
+                onBackPressed();
+                return true;
         }
+
+        return super.onOptionsItemSelected(item);
     }
 
 
@@ -179,19 +198,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     //
-    private String getUrl(LatLng origin, LatLng dest) {
-        // Origin of route
-        String str_origin = "origin=" + origin.latitude + "," + origin.latitude;
-
-        // Destination of route
-        String str_dest = "destination=" + dest.latitude + "," + dest.longitude;
+    private String getUrl(LatLng originLoc, LatLng dest) {
+//        // Origin of route
+//        String str_origin = "origin=" + origin.latitude + "," + origin.latitude;
+//
+//        // Destination of route
+//        String str_dest = "destination=" + dest.latitude + "," + dest.longitude;
 
         // Sensor enabled
-        String sensor = "sensor=false";
-
-        //Building the parameters
-        String parameters = str_origin + "&" + str_dest + "&" + sensor;
-//        String parameters = str_origin + "&" + str_dest;
+//        String sensor = "sensor=false";
+//
+//        //Building the parameters
+//        String parameters = str_origin + "&" + str_dest + "&" + sensor;
+////        String parameters = str_origin + "&" + str_dest;
 
         // Output format
         String output = "json";
@@ -202,9 +221,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //        String url = "https://maps.googleapis.com/maps/api/directions/json?origin=Boston,MA&destination=Concord,MA&waypoints=Charlestown,MA|Lexington,MA&key=" +
 //        String url = "https://maps.googleapis.com/maps/api/directions/json?origin=place_id:ChIJk_l7aWYE9YgR3UnhcGM4z_Q&destination=place_id:ChIJw2XuaYoE9YgRPagA5dClSK4&mode=walking&key=" + key_id;
         String url = "https://maps.googleapis.com/maps/api/directions/json?origin=place_id:" +
-                preferences.getString("Allen Sustainable Education Building", "string") +
+                origin +
                 "&destination=place_id:" +
-                preferences.getString("Baker Building", "string") +
+                destination +
                 "&mode=walking&key=" + key_id;
 
         return url;

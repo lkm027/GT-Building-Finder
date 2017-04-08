@@ -33,9 +33,11 @@ public class LocationPicker extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_location_picker);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.locPic_toolBar);
-        setSupportActionBar(toolbar);
+
+        // Configure toolbar
+        Toolbar toolbar = (Toolbar) findViewById(R.id.locPick_toolBar);
         toolbar.setTitleTextColor(getResources().getColor(R.color.buzzYellow));
+        toolbar.setTitle(R.string.toolbar_title);
 
         preferences = getPreferences(MODE_PRIVATE);
         // If preferences exist then retrieve all of their key values, else add new shared preferences

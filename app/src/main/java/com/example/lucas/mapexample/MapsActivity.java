@@ -75,7 +75,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps);
+        setContentView(R.layout.example);
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkLocationPermission();
         }
@@ -93,8 +93,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         preferences = getPreferences(MODE_PRIVATE);
         origin = preferences.getString(intent.getStringExtra("origin"), "Allen Sustainable Education Building");
         destination = preferences.getString(intent.getStringExtra("destination"),"Baker Building");
-
-
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -137,56 +135,54 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             mMap.setMyLocationEnabled(true);
         }
 
-        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-            @Override
-            public void onMapClick(LatLng point) {
+        MarkerOptions options = new MarkerOptions();
 
-                // Already two locations
-                if (markerPoints.size() > 1) {
-                    markerPoints.clear();
-                    mMap.clear();
-                }
+        String url = getUrl();
+        FetchUrl fetchUrl = new FetchUrl();
+        fetchUrl.execute(url);
 
-                // Adding new item to the ArrayList
-                markerPoints.add(point);
+//                // Add new marker to the Google Map android API v2
+//                mMap.addMarker(options);
 
-                // Creating MarkerOptions
 
-                MarkerOptions options = new MarkerOptions();
+//        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+//            @Override
+//            public void onMapClick(LatLng point) {
+//
+//                // Already two locations
+//                if (markerPoints.size() > 1) {
+//                    markerPoints.clear();
+//                    mMap.clear();
+//                }
+//
+//                // Adding new item to the ArrayList
+//                markerPoints.add(point);
+//
+//                // Creating MarkerOptions
+//
+//                MarkerOptions options = new MarkerOptions();
+//
+//                // Setting the position of the marker
+//                options.position(point);
+//
+//
 
-                // Setting the position of the marker
-                options.position(point);
-
-                /*
-                Start location is green
-                End location is Red
-                 */
-
-                if (markerPoints.size() == 1) {
-                    options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
-                } else if (markerPoints.size() == 2) {
-                    options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-                }
-
-                // Add new marker to the Google Map android API v2
-                mMap.addMarker(options);
 
                 // Checks, whether start and end locations are captured
-                if (markerPoints.size() == 2){
-                    LatLng origin = markerPoints.get(0);
-                    LatLng dest = markerPoints.get(1);
-
-                    // Getting URL to the google directions api
-                    String url = getUrl(origin, dest);
-                    Log.d("onMapClick", url.toString());
-                    FetchUrl fetchUrl = new FetchUrl();
-
-                    // Start downloading json data from Google Directions
-                    fetchUrl.execute(url);
-//                    mMap.moveCamera(CameraUpdateFactory.newLatLng(origin));
-                }
-            }
-        });
+//                if (markerPoints.size() == 2){
+//                    LatLng origin = markerPoints.get(0);
+//                    LatLng dest = markerPoints.get(1);
+//
+//                    // Getting URL to the google directions api
+//                    String url = getUrl(origin, dest);
+//                    Log.d("onMapClick", url.toString());
+//                    FetchUrl fetchUrl = new FetchUrl();
+//
+//                    // Start downloading json data from Google Directions
+//                    fetchUrl.execute(url);
+////                }
+//            }
+//        });
 
 //        // Add a marker in Sydney and move the camera
 //        LatLng sydney = new LatLng(-34, 151);
@@ -197,28 +193,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     //
-    private String getUrl(LatLng originLoc, LatLng dest) {
-//        // Origin of route
-//        String str_origin = "origin=" + origin.latitude + "," + origin.latitude;
-//
-//        // Destination of route
-//        String str_dest = "destination=" + dest.latitude + "," + dest.longitude;
-
-        // Sensor enabled
-//        String sensor = "sensor=false";
-//
-//        //Building the parameters
-//        String parameters = str_origin + "&" + str_dest + "&" + sensor;
-////        String parameters = str_origin + "&" + str_dest;
-
-        // Output format
-        String output = "json";
-
+    private String getUrl() {
         //Build the url to the web service
         String key_id= "AIzaSyBEtKN5vSuYtmP6DOAj7IMzePm0VwqJWKM";
-//        String url = "https://maps.googleapis.com/maps/api/directions/" + output + "?" + parameters + "&key=" + key_id;
-//        String url = "https://maps.googleapis.com/maps/api/directions/json?origin=Boston,MA&destination=Concord,MA&waypoints=Charlestown,MA|Lexington,MA&key=" +
-//        String url = "https://maps.googleapis.com/maps/api/directions/json?origin=place_id:ChIJk_l7aWYE9YgR3UnhcGM4z_Q&destination=place_id:ChIJw2XuaYoE9YgRPagA5dClSK4&mode=walking&key=" + key_id;
+
         String url = "https://maps.googleapis.com/maps/api/directions/json?origin=place_id:" +
                 origin +
                 "&destination=place_id:" +
@@ -352,7 +330,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 // Add all the points in the route to Line Options
                 lineOptions.addAll(points);
                 lineOptions.width(10);
-                lineOptions.color(Color.RED);
+                lineOptions.color(Color.BLUE);
 
                 Log.d("onPostExecute", "onPostExecute lineoptions decoded");
 
@@ -388,11 +366,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         // Place current location marker
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(latLng);
-        markerOptions.title("Current Position");
-        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
-        mCurrLocationMarker = mMap.addMarker(markerOptions);
+//        MarkerOptions markerOptions = new MarkerOptions();
+//        markerOptions.position(latLng);
+//        markerOptions.title("Current Position");
+//        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA));
+////        mCurrLocationMarker = mMap.addMarker(markerOptions);
 
         // Move map camera
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
@@ -416,6 +394,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 == PackageManager.PERMISSION_GRANTED) {
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
         }
+        // Zoom in to current location
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(50,50), 14.0f));
     }
 
     @Override

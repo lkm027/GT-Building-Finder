@@ -5,4 +5,5 @@
     <string name="button_submit_Locs">Submit</string>
     <string name="txtbox_origin_spinner">Where do you want to start?</string>
     <string name="txtbox_dest_spinner">Where do you want to go?</string>
+    <string name="toolbar_title">GT Building Finder</string>
 </resources>

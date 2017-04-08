@@ -32,9 +32,10 @@ public class LocationPicker extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.example);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setContentView(R.layout.content_location_picker);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.locPic_toolBar);
         setSupportActionBar(toolbar);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.buzzYellow));
 
         preferences = getPreferences(MODE_PRIVATE);
         // If preferences exist then retrieve all of their key values, else add new shared preferences
@@ -51,12 +52,13 @@ public class LocationPicker extends AppCompatActivity {
                 Log.d("map values",entry.getKey() + ": " + entry.getValue().toString());
             }
         }
+        // Sort our list to place items in the correct order
         locations.subList(1, locations.size());
         Collections.sort(locations);
 
+        // Create adapter
         originSpinner = (Spinner) findViewById(R.id.spinner_origin_loc);
         destSpinner = (Spinner) findViewById(R.id.spinner_dest_loc);
-
         ArrayAdapter<String> originAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
                 locations);
         ArrayAdapter<String> destAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,
@@ -70,10 +72,10 @@ public class LocationPicker extends AppCompatActivity {
         originSpinner.setAdapter(originAdapter);
         destSpinner.setAdapter(destAdapter);
 
-        Toolbar appbar = (Toolbar) findViewById(R.id.locPic_toolBar);
-//        setSupportActionBar(appbar);
-        appbar.setTitle("GT Building Finder");
-        appbar.setTitleTextColor(Color.parseColor("#eeb211"));
+//        // Set toolbar title and text color
+//        Toolbar appbar = (Toolbar) findViewById(R.id.locPic_toolBar);
+//        appbar.setTitle(R.string.toolbar_title);
+//        appbar.setTitleTextColor(getResources().getColor(R.color.white));
 
     }
 

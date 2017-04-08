@@ -104,7 +104,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 onBackPressed();
                 return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 

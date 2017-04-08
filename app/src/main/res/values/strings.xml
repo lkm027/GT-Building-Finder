@@ -2,4 +2,7 @@
     <string name="app_name">MapExample</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_location_picker">LocationPicker</string>
+    <string name="button_submit_Locs">Submit</string>
+    <string name="txtbox_origin_spinner">Where do you want to start?</string>
+    <string name="txtbox_dest_spinner">Where do you want to go?</string>
 </resources>

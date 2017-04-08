@@ -3,11 +3,12 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <Spinner
         android:id="@+id/spinner_origin_loc"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-    </Spinner>
+        android:layout_height="wrap_content"
+        android:spinnerMode="dialog"></Spinner>
 
     <Spinner
         android:id="@+id/spinner_dest_loc"
@@ -19,7 +20,8 @@
         android:id="@+id/but_submit_loc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="submitLocations"/>
+        android:onClick="submitLocations"
+        android:text="@string/button_submit_Locs"/>
 
 
 </LinearLayout>

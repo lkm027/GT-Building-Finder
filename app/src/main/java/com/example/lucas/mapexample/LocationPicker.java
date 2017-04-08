@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -31,7 +32,7 @@ public class LocationPicker extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_location_picker);
+        setContentView(R.layout.example);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -60,18 +61,20 @@ public class LocationPicker extends AppCompatActivity {
                 locations);
         ArrayAdapter<String> destAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,
                 locations);
+
         // Specif the layout to use when the list of choices appears
         originAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         destAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
         // Apply adapter to spinner
         originSpinner.setAdapter(originAdapter);
         destSpinner.setAdapter(destAdapter);
 
-//        FragmentManager fragmentManager = getFragmentManager();
-//        android.app.FragmentTransaction transaction = fragmentManager.beginTransaction();
-//
-//        MapsActivity fragment = new MapsActivity();
-//        transaction.add(R.id.fragment, fragment);
+        Toolbar appbar = (Toolbar) findViewById(R.id.locPic_toolBar);
+//        setSupportActionBar(appbar);
+        appbar.setTitle("GT Building Finder");
+        appbar.setTitleTextColor(Color.parseColor("#eeb211"));
+
     }
 
     /**

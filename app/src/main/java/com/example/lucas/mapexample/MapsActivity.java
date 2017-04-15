@@ -91,8 +91,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         // Grab location and destination information from previous activity
         Intent intent = getIntent();
         preferences = getPreferences(MODE_PRIVATE);
-        origin = preferences.getString(intent.getStringExtra("origin"), "Allen Sustainable Education Building");
-        destination = preferences.getString(intent.getStringExtra("destination"),"Baker Building");
+        origin = preferences.getString(intent.getStringExtra("origin"), "ChIJO42jLIoE9YgROG9jaBOnSLU");
+        destination = preferences.getString(intent.getStringExtra("destination"),"ChIJTSnsFYsE9YgRyhuMqeBD9cQ");
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {

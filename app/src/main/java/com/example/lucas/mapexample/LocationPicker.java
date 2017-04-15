@@ -73,12 +73,6 @@ public class LocationPicker extends AppCompatActivity {
         // Apply adapter to spinner
         originSpinner.setAdapter(originAdapter);
         destSpinner.setAdapter(destAdapter);
-
-//        // Set toolbar title and text color
-//        Toolbar appbar = (Toolbar) findViewById(R.id.locPic_toolBar);
-//        appbar.setTitle(R.string.toolbar_title);
-//        appbar.setTitleTextColor(getResources().getColor(R.color.white));
-
     }
 
     /**

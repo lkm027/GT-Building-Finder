@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "637456083838",
+    "firebase_url": "https://gt-building-finder.firebaseio.com",
+    "project_id": "gt-building-finder",
+    "storage_bucket": "gt-building-finder.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:637456083838:android:25f97d5f11b2e673",
+        "android_client_info": {
+          "package_name": "com.example.lucas.mapexample"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "637456083838-l984lk5pve1259jrsq7om53kh5t7nlsl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.lucas.mapexample",
+            "certificate_hash": "511fc8668a675d68a7f23595f14746cc37865014"
+          }
+        },
+        {
+          "client_id": "637456083838-42hoboh1bbtb1s54jkr2ndnd1ai3j30f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBy_hlV9rilPTl2tP3szCrsFocgWAY8_s"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "637456083838-42hoboh1bbtb1s54jkr2ndnd1ai3j30f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
